@@ -1,12 +1,15 @@
 def main(ctx):
   return [
-    step("1.7.10", "10.13.4.1558", [], "1.7.10-10.13.4.1558-1.7.10"), # 1.7 is special (and legacy)
-    step("1.12.2", "14.23.5.2768"),
+    step("1.7.10", "10.13.4.1558", [],
+            "forge-1.7.10-10.13.4.1558-1.7.10-universal.jar",
+            "1.7.10-10.13.4.1558-1.7.10"), # 1.7 is special (and legacy)
+    step("1.12.2", "14.23.5.2768", [],
+            "forge-1.12.2-14.23.5.2768-universal.jar"),
     step("1.14.4", "28.1.115"),
     step("1.15.1", "30.0.41", ["latest"]),
   ]
 
-def step(mcver, forgever, tags=[], buildver=''):
+def step(mcver, forgever, tags=[], jarfile=None, buildver=None):
   mcforgever = "%s-%s" % (mcver, forgever)
   pipeline = {
     "kind": "pipeline",
@@ -58,6 +61,8 @@ def step(mcver, forgever, tags=[], buildver=''):
     ]
   }
 
+  if jarfile:
+    pipeline["steps"][0]["settings"]["build_args"] += ["JAR_FILE=%s" % jarfile]
   if buildver:
     pipeline["steps"][0]["settings"]["build_args"] += ["BUILD_VER=%s" % buildver]
 
