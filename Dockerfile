@@ -2,13 +2,13 @@ FROM spritsail/alpine:3.11
 
 ARG MC_VER=1.7.10
 ARG FORGE_VER=10.13.4.1558
-ARG BUILD_VER=${MC_VER}-${FORGE_VER}-${MC_VER}
+ARG BUILD_VER=${MC_VER}-${FORGE_VER}
 
 LABEL maintainer="Spritsail <minecraftforge@spritsail.io>" \
       org.label-schema.name="Minecraft Forge server" \
       org.label-schema.url="http://files.minecraftforge.net/" \
       org.label-schema.description="Minecraft Forge server" \
-      org.label-schema.version=${MC_VER}
+      org.label-schema.version=${MC_VER}-${FORGE_VER}
 
 RUN apk --no-cache add openjdk8-jre nss && \
     \
